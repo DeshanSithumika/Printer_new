@@ -21,35 +21,28 @@ const PrinterScreen = () => {
 
 
 
-
 async function requestBluetoothPermissions() {
   if (Platform.OS === 'android' && Platform.Version >= 31) {
     try {
       const granted = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
         PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN,
-        PermissionsAndroid.PERMISSIONS.BLUETOOTH_ADMIN,
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       ]);
 
       if (
-        granted[PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN] ===
-          PermissionsAndroid.RESULTS.GRANTED &&
-        granted[PermissionsAndroid.PERMISSIONS.BLUETOOTH_ADMIN] ===
-          PermissionsAndroid.RESULTS.GRANTED &&
-        granted[PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION] ===
-          PermissionsAndroid.RESULTS.GRANTED
+        granted[PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT] === PermissionsAndroid.RESULTS.GRANTED &&
+        granted[PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN] === PermissionsAndroid.RESULTS.GRANTED
       ) {
-        console.log('Bluetooth permissions granted.');
+        console.log("Bluetooth permissions granted.");
       } else {
-        console.log('Bluetooth permissions denied.');
+        console.log("Bluetooth permissions denied.");
       }
     } catch (err) {
       console.warn(err);
     }
-  } else {
-    console.log('Bluetooth permissions are not required for this Android version.');
   }
 }
+
 
 useEffect(() => {
   requestBluetoothPermissions();
