@@ -70,6 +70,7 @@ class ZSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
 
     @ReactMethod
     fun zsdkPrinterDiscoveryBluetooth(callback: Callback) {
+        Log.d("ZSDKModule", "zsdkPrinterDiscoveryBluetooth")
         try {
             BluetoothDiscoverer.findPrinters(reactApplicationContext, DiscoveryResult(callback))
         } catch (e: ConnectionException) {
